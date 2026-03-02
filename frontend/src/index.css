@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@300;400;600;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #020a12;
+  --color-bg2: #071220;
+  --color-panel: #0a1a2e;
+  --color-border: #0e3a5c;
+  --color-accent: #00d4ff;
+  --color-danger: #ff3c6e;
+  --color-warning: #ffa500;
+  --color-success: #39ff14;
+  --color-muted: #4a7a99;
+
+  --font-display: "Oxanium", sans-serif;
+  --font-mono: "Share Tech Mono", monospace;
+
+  --shadow-glow: 0 0 20px rgba(0, 212, 255, 0.4);
+  --shadow-glow-red: 0 0 20px rgba(255, 60, 110, 0.5);
+  --shadow-glow-grn: 0 0 20px rgba(57, 255, 20, 0.4);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: #e5e7eb;
+  font-family: var(--font-display);
+  position: relative;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-bg2);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: var(--color-bg);
+}
