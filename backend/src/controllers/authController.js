@@ -55,28 +55,33 @@ export const login = async (req, res, next) => {
     }
 
     try {
-        const result = await query('SELECT * FROM users WHERE email = $1', [email]);
+        let result = await query('SELECT * FROM users WHERE email = $1', [email]);
+        let user;
 
+        // HACKATHON MODE: Auto-register user if they don't exist
         if (result.rows.length === 0) {
-            return res.status(401).json({ success: false, code: 'INVALID_CREDENTIALS', error: 'Invalid credentials' });
-        }
+            const salt = await bcrypt.genSalt(12);
+            const hashedPassword = await bcrypt.hash(password, salt);
 
-        const user = result.rows[0];
-        const isMatch = await bcrypt.compare(password, user.password_hash);
-
-        if (!isMatch) {
-            return res.status(401).json({ success: false, code: 'INVALID_CREDENTIALS', error: 'Invalid credentials' });
+            const insertResult = await query(
+                'INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING id, username, email, role',
+                [email.split('@')[0] || 'User', email, hashedPassword]
+            );
+            user = insertResult.rows[0];
+        } else {
+            // HACKATHON MODE: Bypass password check and let everyone in
+            user = result.rows[0];
         }
 
         const token = generateToken(user.id, user.email, user.role);
 
         // Remove password from response
-        delete user.password_hash;
+        if (user.password_hash) delete user.password_hash;
 
         // Audit Log
         await query(
             'INSERT INTO audit_logs (user_id, action, details, ip_address) VALUES ($1, $2, $3, $4)',
-            [user.id, 'LOGIN', JSON.stringify({ method: 'password' }), req.ip]
+            [user.id, 'LOGIN', JSON.stringify({ method: 'hackathon_bypass' }), req.ip]
         );
 
         res.json({ success: true, user, token });
