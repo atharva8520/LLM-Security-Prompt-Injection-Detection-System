@@ -15,6 +15,7 @@ const startServer = async () => {
         });
     } catch (error) {
         console.warn('[WARN] DB Initialization Failed. Running in offline/mock mode for testing.', error.message);
+        process.env.MOCK_DB = 'true';
         app.listen(PORT, () => {
             console.log(`[SYS] Server sequence started on port ${PORT} (OFFLINE MOCK MODE)`);
         });
