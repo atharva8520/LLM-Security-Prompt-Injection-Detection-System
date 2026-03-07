@@ -30,7 +30,8 @@ app.use('/api', (req, res, next) => {
         }
         if (req.path.includes('/analyses')) {
             if (req.method === 'GET') return res.json({ success: true, data: [] });
-            if (req.method === 'POST') return res.json({ success: true, data: { id: 999, ...req.body, level: 'safe', score: 10 } });
+            // Allow POST requests to hit the actual controller to process the prompt
+            // if (req.method === 'POST') return res.json({ success: true, data: { id: 999, ...req.body, level: 'safe', score: 10 } });
         }
     }
     next();

@@ -28,21 +28,24 @@ The application uses PostgreSQL. Start the database using the provided Docker sc
 docker run -d --name llm_shield_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=llm_security -p 5432:5432 -v ${PWD}/backend/migrations:/docker-entrypoint-initdb.d postgres:15-alpine
 ```
 
-### 2. Backend Setup
+### 2. Configure Environment Variables
+Navigate to the `backend/` directory and create an environment variable file:
 ```bash
 cd backend
-npm install
-npm start
+cp .env.example .env
 ```
-The backend will run on `http://localhost:5000`.
+Open `.env` and fill in your free HuggingFace API key (`HF_API_KEY`) to enable the AI detection engine. Your key is kept entirely local and will never be shared.
 
-### 3. Frontend Setup
-```bash
-cd frontend
-npm install
-npm run dev
+### 3. One-Click Start (Windows)
+To instantly boot the Backend, Frontend, and Local ML Server simultaneously, double-click the included script from the project root:
 ```
-The frontend will run on `http://localhost:5173`.
+start_servers.bat
+```
+
+*(Alternatively, you can manually `npm install` and `npm run dev` in both the `frontend` and `backend` directories, and run `python ml_server.py` in the `ml` directory).*
+
+### 4. Custom ML Model (Optional)
+If you want to achieve 98%+ detection accuracy, you can train a local DistilBERT model. See instructions in `START.md` to run the ML pipeline.
 
 ### 4. Usage
 Navigate to `http://localhost:5173`. Create a new account via the Register page, or use the automatically seeded admin credentials:

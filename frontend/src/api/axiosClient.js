@@ -5,7 +5,8 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use((config) => {
-    const token = localStorage.getItem('llm_token');
+    // We bypassed login, so we use the mock token for all requests now.
+    const token = 'mock-jwt-token';
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }

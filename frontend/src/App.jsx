@@ -28,14 +28,14 @@ function AppRoutes() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage />} />
-                <Route path="/register" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <RegisterPage />} />
+                <Route path="/login" element={isAuthenticated ? <Navigate to="/analyze" replace /> : <LoginPage />} />
+                <Route path="/register" element={isAuthenticated ? <Navigate to="/analyze" replace /> : <RegisterPage />} />
 
                 <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
                 <Route path="/analyze" element={<ProtectedRoute><AnalyzePage /></ProtectedRoute>} />
                 <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
 
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/" element={<Navigate to="/analyze" replace />} />
             </Routes>
         </BrowserRouter>
     );

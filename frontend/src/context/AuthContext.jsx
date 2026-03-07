@@ -4,26 +4,14 @@ import axiosClient from '../api/axiosClient';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(localStorage.getItem('llm_token'));
-    const [isLoading, setIsLoading] = useState(true);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState({ id: 1, username: 'AgentZero', email: 'admin@local', role: 'admin' });
+    const [token, setToken] = useState('mock-jwt-token');
+    const [isLoading, setIsLoading] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
 
     useEffect(() => {
-        const initAuth = async () => {
-            if (token) {
-                try {
-                    const res = await axiosClient.get('/auth/me');
-                    setUser(res.data.user);
-                    setIsAuthenticated(true);
-                } catch (error) {
-                    logout();
-                }
-            }
-            setIsLoading(false);
-        };
-        initAuth();
-    }, [token]);
+        // No-op for mock auth
+    }, []);
 
     const login = async (email, password) => {
         const res = await axiosClient.post('/auth/login', { email, password });

@@ -49,24 +49,17 @@ const Sidebar = () => {
 
             {/* User Info & Logout */}
             <div className="p-4 border-t border-border bg-bg2/50 mt-auto">
-                <div className="flex items-center space-x-3 mb-4">
+                <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 rounded bg-panel border border-border flex items-center justify-center text-accent font-bold font-mono">
-                        {user?.username ? user.username.substring(0, 2).toUpperCase() : '??'}
+                        {user?.username ? user.username.substring(0, 2).toUpperCase() : 'AZ'}
                     </div>
                     <div className="flex-1 overflow-hidden">
                         <p className="text-sm font-bold text-gray-200 truncate">{user?.username || 'GUEST'}</p>
                         <p className="text-xs text-accent font-mono border border-accent/30 bg-accent/10 px-1 py-0.5 rounded inline-block mt-0.5 uppercase">
-                            {user?.role || 'USER'}
+                            {user?.role || 'SYSTEM'}
                         </p>
                     </div>
                 </div>
-                <button
-                    onClick={logout}
-                    className="w-full flex items-center justify-center space-x-2 py-2 text-xs font-mono text-danger border border-danger/30 hover:bg-danger/10 hover:border-danger transition-colors rounded uppercase"
-                >
-                    <ArrowRightOnRectangleIcon className="w-4 h-4" />
-                    <span>TERMINATE SESSION</span>
-                </button>
             </div>
         </div>
     );
